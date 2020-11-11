@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "16891515274",
+    "firebase_url": "https://emergenciaspsiquiatricas-3fe80.firebaseio.com",
+    "project_id": "emergenciaspsiquiatricas-3fe80",
+    "storage_bucket": "emergenciaspsiquiatricas-3fe80.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:16891515274:android:bea83c3465e5ea221e3873",
+        "android_client_info": {
+          "package_name": "com.bibal.saludlaboral"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "16891515274-sc9j2cslitjqngllu2moseml3jk7cbe6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIF1e0q6wZfJ52FN3TCa0qssFwHSz87os"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "16891515274-sc9j2cslitjqngllu2moseml3jk7cbe6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

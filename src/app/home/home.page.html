@@ -1,0 +1,25 @@
+<ion-header>
+	<ion-toolbar color="primary">
+		<ion-title>Inicio</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid style="height: 50%">
+		<ion-row style="height: 100%; flex-direction: column">
+			<img src="assets/img/logo.png" />
+		</ion-row>
+		<form [formGroup]="login" (ngSubmit)="validateLogin()">
+			<ion-item>
+				<ion-label>Usuario</ion-label>
+				<ion-input type="text" formControlName="usuario" required></ion-input>
+			</ion-item>
+			<ion-item>
+				<ion-label>Contraseña</ion-label>
+				<ion-input type="text" formControlName="pass" required></ion-input>
+			</ion-item>
+			<ion-button expand="full" color="primary" type="submit" [disabled]="!login.valid">Iniciar Sesi&oacute;n
+			</ion-button>
+		</form>
+	</ion-grid>
+</ion-content>

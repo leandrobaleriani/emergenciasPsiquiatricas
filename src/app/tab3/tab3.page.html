@@ -1,17 +1,31 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 3
-    </ion-title>
-  </ion-toolbar>
+<ion-header>
+	<ion-toolbar color="primary">
+		<ion-title>Perfil</ion-title>
+	</ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+<ion-content fullscreen class="ion-padding">
+	<form [formGroup]="perfil" (ngSubmit)="updateUserData()">
+		<ion-item>
+			<ion-label>Nombre:</ion-label>
+			<ion-input type="text" name="nombre" formControlName="nombre"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label>Email:</ion-label>
+			<ion-input type="text" name="email" formControlName="email"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label>Telefono:</ion-label>
+			<ion-input type="text" name="telefono" formControlName="telefono"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label>Direcci&oacute;n:</ion-label>
+			<ion-input type="text" name="direccion" formControlName="direccion"></ion-input>
+		</ion-item>
+		<ion-button type="submit" float-right [disabled]="!perfil.valid">Actualizar</ion-button>
+	</form>
 </ion-content>
+<ion-footer class="ion-no-padding ion-no-margin">
+	<ion-button class="ion-no-margin" expand="full" fill="outline" (click)="cerrarSesion()">Cerrar Sesi&oacute;n
+	</ion-button>
+</ion-footer>
