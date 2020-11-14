@@ -9,6 +9,10 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+  },
+  {
+    path: 'turno',
+    loadChildren: () => import('./turno/turno.module').then( m => m.TurnoPageModule)
   }
 ];
 @NgModule({

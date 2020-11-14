@@ -35,7 +35,7 @@ export class Tab2Page implements OnInit {
 
 		await loading.present();
 		await this.storage.get('user').then((val) => {
-			this.tService.getTurnosByUserId(val.id).subscribe(data => {
+			this.tService.getTurnosByDeviceId(val.id).subscribe(data => {
 				this.turnos = data;
 				loading.dismiss();
 			}, error => {
@@ -47,16 +47,11 @@ export class Tab2Page implements OnInit {
 	}
 
 	async verDetalle(t) {
-		let detalle = "<b>Dirección: </b>" + t.tur_dir + "<br>";
-		if (t.tur_detalle != "") {
-			detalle = detalle + "<br><b>Detalle: </b>" + t.tur_detalle;
-    }
-    
-    detalle = detalle + "<br><b>Horario: </b>"  + new Date(t.tur_hora).toLocaleTimeString();
-
+		let detalle = "<b>Detalle: </b>" + t.tur_detalle + "<br>";
+	
 		const alert = await this.alertController.create({
 			header: 'Detalle',
-			subHeader: 'Turno N°: ' + t.res_id,
+			subHeader: 'Turno N°: ' + t.tur_id,
 			message: detalle,
 			buttons: [
 				{
@@ -64,10 +59,11 @@ export class Tab2Page implements OnInit {
 					role: 'cancel',
 					cssClass: 'secondary'
 				}, {
-					text: 'Cancelar Reserva',
+					text: 'Cancelar Turno',
 					cssClass: 'primary',
 					handler: () => {
 						this.cancelarTurno(t.tur_id, "CANCELADO");
+						alert.dismiss();
 					}
 				}
 			]

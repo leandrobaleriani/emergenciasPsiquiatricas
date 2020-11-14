@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n\t<ion-toolbar color=\"primary\">\n\t\t<ion-title>Mis Reservas</ion-title>\n\t</ion-toolbar>\n</ion-header>\n\n<ion-content [fullscreen]=\"true\">\n\t<ion-virtual-scroll [items]=\"turnos\">\n\t\t<ion-item *virtualItem=\"let t\" (click)=\"verDetalle(t)\">\n\t\t\t<ion-avatar slot=\"start\">\n\t\t\t\t<ion-icon name=\"time\" *ngIf=\"t.tur_tipo == 'NORMAL'\"></ion-icon>\n\t\t\t\t<ion-icon name=\"time\" color=\"danger\" *ngIf=\"t.tur_tipo == 'URGENCIA'\"></ion-icon>\n\t\t\t</ion-avatar>\n\t\t\t<ion-label>\n\t\t\t\t<h2>{{t.tur_fecha}}</h2>\n\t\t\t\t<h3>{{t.tur_direccion}}</h3>\n\t\t\t\t<h3>{{t.tur_hora}}</h3>\n\t\t\t</ion-label>\n\t\t\t<ion-item-option (click)=\"verDetalle(t)\" color=\"primary\" *ngIf=\"r.res_estado == 'PENDIENTE'\">{{r.res_estado}}\n\t\t\t</ion-item-option>\n\t\t\t<ion-item-option (click)=\"verDetalle(t)\" color=\"success\" *ngIf=\"r.res_estado == 'REALIZADO'\">{{r.res_estado}}\n\t\t\t</ion-item-option>\n\t\t\t<ion-item-option (click)=\"verDetalle(t)\" color=\"danger\" *ngIf=\"r.res_estado == 'CANCELADO'\">{{r.res_estado}}\n\t\t\t</ion-item-option>\n\t\t\t<ion-item-option (click)=\"verDetalle(t)\" color=\"success\" *ngIf=\"r.res_estado == 'CONFIRMADO'\">{{r.res_estado}}\n\t\t\t</ion-item-option>\n\t\t</ion-item>\n\t</ion-virtual-scroll>\n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n\t<ion-toolbar color=\"primary\">\n\t\t<ion-title>Mis Reservas</ion-title>\n\t</ion-toolbar>\n</ion-header>\n\n<ion-content [fullscreen]=\"true\">\n\t<ion-virtual-scroll [items]=\"turnos\">\n\t\t<ion-item *virtualItem=\"let t\" (click)=\"verDetalle(t)\">\n\t\t\t<ion-avatar slot=\"start\">\n\t\t\t\t<ion-icon name=\"time\" *ngIf=\"t.tur_tipo == 'PROGRAMADA'\"></ion-icon>\n\t\t\t\t<ion-icon name=\"time\" color=\"danger\" *ngIf=\"t.tur_tipo == 'URGENCIA'\"></ion-icon>\n\t\t\t</ion-avatar>\n\t\t\t<ion-label>\n\t\t\t\t<h2>{{t.tur_fecha}}</h2>\n\t\t\t\t<h3>{{t.tur_nombre}}</h3>\n\t\t\t\t<h3>{{t.tur_hora}}</h3>\n\t\t\t</ion-label>\n\t\t\t<ion-item-option (click)=\"verDetalle(t)\" color=\"primary\" *ngIf=\"t.tur_estado == 'PENDIENTE'\">{{t.tur_estado}}\n\t\t\t</ion-item-option>\n\t\t\t<ion-item-option (click)=\"verDetalle(t)\" color=\"success\" *ngIf=\"t.tur_estado == 'REALIZADO'\">{{t.tur_estado}}\n\t\t\t</ion-item-option>\n\t\t\t<ion-item-option (click)=\"verDetalle(t)\" color=\"danger\" *ngIf=\"t.tur_estado == 'CANCELADO'\">{{t.tur_estado}}\n\t\t\t</ion-item-option>\n\t\t\t<ion-item-option (click)=\"verDetalle(t)\" color=\"success\" *ngIf=\"t.tur_estado == 'CONFIRMADO'\">{{t.tur_estado}}\n\t\t\t</ion-item-option>\n\t\t</ion-item>\n\t</ion-virtual-scroll>\n</ion-content>");
 
 /***/ }),
 
@@ -66,9 +66,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js");
 /* harmony import */ var _tab2_page__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./tab2.page */ "./src/app/tab2/tab2.page.ts");
-/* harmony import */ var _explore_container_explore_container_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../explore-container/explore-container.module */ "./src/app/explore-container/explore-container.module.ts");
-/* harmony import */ var _tab2_routing_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./tab2-routing.module */ "./src/app/tab2/tab2-routing.module.ts");
-
+/* harmony import */ var _tab2_routing_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./tab2-routing.module */ "./src/app/tab2/tab2-routing.module.ts");
 
 
 
@@ -84,8 +82,7 @@ Tab2PageModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
             _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["IonicModule"],
             _angular_common__WEBPACK_IMPORTED_MODULE_3__["CommonModule"],
             _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormsModule"],
-            _explore_container_explore_container_module__WEBPACK_IMPORTED_MODULE_6__["ExploreContainerComponentModule"],
-            _tab2_routing_module__WEBPACK_IMPORTED_MODULE_7__["Tab2PageRoutingModule"]
+            _tab2_routing_module__WEBPACK_IMPORTED_MODULE_6__["Tab2PageRoutingModule"]
         ],
         declarations: [_tab2_page__WEBPACK_IMPORTED_MODULE_5__["Tab2Page"]]
     })
@@ -148,7 +145,7 @@ let Tab2Page = class Tab2Page {
             });
             yield loading.present();
             yield this.storage.get('user').then((val) => {
-                this.tService.getTurnosByUserId(val.id).subscribe(data => {
+                this.tService.getTurnosByDeviceId(val.id).subscribe(data => {
                     this.turnos = data;
                     loading.dismiss();
                 }, error => {
@@ -161,14 +158,10 @@ let Tab2Page = class Tab2Page {
     }
     verDetalle(t) {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
-            let detalle = "<b>Dirección: </b>" + t.tur_dir + "<br>";
-            if (t.tur_detalle != "") {
-                detalle = detalle + "<br><b>Detalle: </b>" + t.tur_detalle;
-            }
-            detalle = detalle + "<br><b>Horario: </b>" + new Date(t.tur_hora).toLocaleTimeString();
+            let detalle = "<b>Detalle: </b>" + t.tur_detalle + "<br>";
             const alert = yield this.alertController.create({
                 header: 'Detalle',
-                subHeader: 'Turno N°: ' + t.res_id,
+                subHeader: 'Turno N°: ' + t.tur_id,
                 message: detalle,
                 buttons: [
                     {
@@ -176,10 +169,11 @@ let Tab2Page = class Tab2Page {
                         role: 'cancel',
                         cssClass: 'secondary'
                     }, {
-                        text: 'Cancelar Reserva',
+                        text: 'Cancelar Turno',
                         cssClass: 'primary',
                         handler: () => {
                             this.cancelarTurno(t.tur_id, "CANCELADO");
+                            alert.dismiss();
                         }
                     }
                 ]

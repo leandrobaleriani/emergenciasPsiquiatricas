@@ -147,6 +147,7 @@ ext {
 }
 
 // PLUGIN GRADLE EXTENSIONS START
+apply from: "../cordova-plugin-firebasex/saludlaboral-build.gradle"
 // PLUGIN GRADLE EXTENSIONS END
 
 def hasBuildExtras1 = file('build-extras.gradle').exists()
@@ -351,6 +352,20 @@ dependencies {
 
     // SUB-PROJECT DEPENDENCIES START
     implementation(project(path: ":CordovaLib"))
+    implementation "com.google.android.gms:play-services-tagmanager:17.0.0"
+    implementation "com.google.android.gms:play-services-auth:18.1.0"
+    implementation "com.google.firebase:firebase-analytics:17.5.0"
+    implementation "com.google.firebase:firebase-messaging:20.3.0"
+    implementation "com.google.firebase:firebase-config:19.2.0"
+    implementation "com.google.firebase:firebase-perf:19.0.9"
+    implementation "com.google.firebase:firebase-auth:19.4.0"
+    implementation "com.google.firebase:firebase-inappmessaging:19.1.1"
+    implementation "com.google.firebase:firebase-inappmessaging-display:19.1.1"
+    implementation "com.google.firebase:firebase-firestore:21.7.0"
+    implementation "com.google.firebase:firebase-crashlytics:17.2.2"
+    implementation "com.google.firebase:firebase-crashlytics-ndk:17.2.2"
+    implementation "com.google.code.gson:gson:2.8.6"
+    implementation "androidx.annotation:annotation:1.1.0"
     // SUB-PROJECT DEPENDENCIES END
 }
 

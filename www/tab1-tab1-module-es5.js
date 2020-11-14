@@ -22,35 +22,8 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n\t<ion-toolbar color=\"primary\">\n\t\t<ion-title>Solicitar Turno</ion-title>\n\t</ion-toolbar>\n</ion-header>\n\n<ion-content [fullscreen]=\"true\">\n\t<form [formGroup]=\"turno\" (ngSubmit)=\"saveTurno()\">\n    <ion-item>\n\t\t\t<ion-label position=\"stacked\">Fecha:</ion-label>\n\t\t\t<ion-datetime cancelText=\"Cancelar\" doneText=\"Listo\" value=\"{{ turno.fecha | date:'dd-MM-yyyy' }}\" display-format=\"DD/MM/YYYY\" picker-format=\"DD/MM/YYYY\" formControlName=\"fecha\" required></ion-datetime>\n\t\t</ion-item>\n    <ion-item>\n\t\t\t<ion-label position=\"stacked\">Tipo de Turno:</ion-label>\n\t\t\t<ion-select value=\"URGENCIA\" okText=\"Listo\" cancelText=\"Cancelar\">\n        <ion-select-option value=\"URGENCIA\">URGENCIA</ion-select-option>\n        <ion-select-option value=\"NORMAL\">NORMAL</ion-select-option>\n      </ion-select>\n    </ion-item>\n\t\t<ion-item>\n\t\t\t<ion-label position=\"stacked\">Nombre:</ion-label>\n\t\t\t<ion-input type=\"text\" formControlName=\"nombre\" required></ion-input>\n\t\t</ion-item>\n\t\t<ion-item>\n\t\t\t<ion-label position=\"stacked\">Descripci&oacute;n:</ion-label>\n\t\t\t<ion-textarea formControlName=\"detalle\" required></ion-textarea>\n    </ion-item>\n    <ion-button type=\"submit\" expand=\"full\" [disabled]=\"!turno.valid\">Solicitar</ion-button>\n\t</form>\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-header>\n\t<ion-toolbar color=\"primary\">\n\t\t<ion-title>Opciones</ion-title>\n\t</ion-toolbar>\n</ion-header>\n\n<ion-content [fullscreen]=\"true\" class=\"background\">\n\t  <div class=\"fullheight xc\">\n\t\t<ion-grid>\n\t\t\t<ion-row class=\"ion-align-items-center\">\n\t\t\t  <ion-col size=\"12\" class=\"ion-text-center\">\n\t\t\t\t<ion-button expand=\"full\" color=\"success\" type=\"button\" (click)=\"navigateTo('PROGRAMADA')\">PROGRAMAR TURNO\n\t\t\t\t</ion-button>\n\t\t\t  </ion-col>\n\t\t\t  <ion-col size=\"12\" class=\"ion-text-center\">\n\t\t\t\t<ion-button expand=\"full\" color=\"success\" type=\"button\" (click)=\"navigateTo('URGENCIA')\">SOLICITAR ATENCION INMEDIATA\n\t\t\t\t</ion-button>\n\t\t\t  </ion-col>\n\t\t\t</ion-row>\n\t\t  </ion-grid>\n\t  </div>\n</ion-content>";
       /***/
-    },
-
-    /***/
-    "./src/app/model/Turno.ts":
-    /*!********************************!*\
-      !*** ./src/app/model/Turno.ts ***!
-      \********************************/
-
-    /*! exports provided: Turno */
-
-    /***/
-    function srcAppModelTurnoTs(module, __webpack_exports__, __webpack_require__) {
-      "use strict";
-
-      __webpack_require__.r(__webpack_exports__);
-      /* harmony export (binding) */
-
-
-      __webpack_require__.d(__webpack_exports__, "Turno", function () {
-        return Turno;
-      });
-
-      var Turno = function Turno() {
-        _classCallCheck(this, Turno);
-      };
-      /***/
-
     },
 
     /***/
@@ -171,13 +144,7 @@
       /* harmony import */
 
 
-      var _explore_container_explore_container_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
-      /*! ../explore-container/explore-container.module */
-      "./src/app/explore-container/explore-container.module.ts");
-      /* harmony import */
-
-
-      var _tab1_routing_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      var _tab1_routing_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! ./tab1-routing.module */
       "./src/app/tab1/tab1-routing.module.ts");
 
@@ -186,7 +153,7 @@
       };
 
       Tab1PageModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
-        imports: [_ionic_angular__WEBPACK_IMPORTED_MODULE_1__["IonicModule"], _angular_common__WEBPACK_IMPORTED_MODULE_3__["CommonModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormsModule"], _explore_container_explore_container_module__WEBPACK_IMPORTED_MODULE_6__["ExploreContainerComponentModule"], _tab1_routing_module__WEBPACK_IMPORTED_MODULE_7__["Tab1PageRoutingModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_4__["ReactiveFormsModule"]],
+        imports: [_ionic_angular__WEBPACK_IMPORTED_MODULE_1__["IonicModule"], _angular_common__WEBPACK_IMPORTED_MODULE_3__["CommonModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormsModule"], _tab1_routing_module__WEBPACK_IMPORTED_MODULE_6__["Tab1PageRoutingModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_4__["ReactiveFormsModule"]],
         declarations: [_tab1_page__WEBPACK_IMPORTED_MODULE_5__["Tab1Page"]]
       })], Tab1PageModule);
       /***/
@@ -208,7 +175,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3RhYjEvdGFiMS5wYWdlLnNjc3MifQ== */";
+      __webpack_exports__["default"] = "ion-content.background {\n  --background: url('medico.jpg') no-repeat center center / cover;\n}\n\n.fullheight {\n  height: 100%;\n}\n\n.xc {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGFiMS90YWIxLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLCtEQUFBO0FBQ0o7O0FBRUE7RUFDSSxZQUFBO0FBQ0o7O0FBRUU7RUFDRSxhQUFBO0VBQ0EsbUJBQUE7RUFDQSx1QkFBQTtBQUNKIiwiZmlsZSI6InNyYy9hcHAvdGFiMS90YWIxLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImlvbi1jb250ZW50LmJhY2tncm91bmR7XG4gICAgLS1iYWNrZ3JvdW5kOiB1cmwoLi4vLi4vYXNzZXRzL2ltZy9tZWRpY28uanBnKSBuby1yZXBlYXQgY2VudGVyIGNlbnRlciAvIGNvdmVyO1xufVxuXG4uZnVsbGhlaWdodCB7XG4gICAgaGVpZ2h0OiAxMDAlO1xuICB9XG4gIFxuICAueGMge1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgfSJdfQ== */";
       /***/
     },
 
@@ -246,118 +213,35 @@
       /* harmony import */
 
 
-      var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-      /*! @angular/forms */
-      "./node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js");
-      /* harmony import */
-
-
-      var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
       /*! @ionic/angular */
       "./node_modules/@ionic/angular/__ivy_ngcc__/fesm2015/ionic-angular.js");
       /* harmony import */
 
 
-      var _ionic_storage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      var _ionic_storage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
       /*! @ionic/storage */
       "./node_modules/@ionic/storage/__ivy_ngcc__/fesm2015/ionic-storage.js");
-      /* harmony import */
-
-
-      var _model_Turno__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
-      /*! ../model/Turno */
-      "./src/app/model/Turno.ts");
-      /* harmony import */
-
-
-      var _services_turnos_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
-      /*! ../services/turnos.service */
-      "./src/app/services/turnos.service.ts");
 
       var Tab1Page = /*#__PURE__*/function () {
-        function Tab1Page(formBuilder, navCtrl, tService, loadingController, toastController, storage) {
-          var _this = this;
-
+        function Tab1Page(navCtrl, storage) {
           _classCallCheck(this, Tab1Page);
 
-          this.formBuilder = formBuilder;
           this.navCtrl = navCtrl;
-          this.tService = tService;
-          this.loadingController = loadingController;
-          this.toastController = toastController;
           this.storage = storage;
-          this.turno = this.formBuilder.group({
-            fecha: '',
-            nombre: '',
-            detalle: '',
-            tipo: '',
-            deviceId: ''
-          });
-          this.storage.get('user').then(function (val) {
-            _this.turno.controls.nombre.setValue(val.nombre);
-
-            _this.turno.controls.deviceId.setValue(val.id);
-          });
-          this.storage.get('fecha').then(function (val) {
-            _this.turno.controls.fecha.setValue(val);
-          });
         }
 
         _createClass(Tab1Page, [{
           key: "ngOnInit",
           value: function ngOnInit() {}
         }, {
-          key: "saveTurno",
-          value: function saveTurno() {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-              var turno, loading, toast;
-              return regeneratorRuntime.wrap(function _callee$(_context) {
-                while (1) {
-                  switch (_context.prev = _context.next) {
-                    case 0:
-                      turno = new _model_Turno__WEBPACK_IMPORTED_MODULE_5__["Turno"]();
-                      turno.tur_fecha = this.turno.controls.fecha.value;
-                      turno.tur_nombre = this.turno.controls.nombre.value;
-                      turno.tur_detalle = this.turno.controls.detalle.value;
-                      turno.tur_tipo = this.turno.controls.tipo.value;
-                      turno.tur_estado = "PENDIENTE";
-                      turno.device_id = this.turno.controls.deviceId.value;
-                      _context.next = 9;
-                      return this.loadingController.create({
-                        message: "Espere...",
-                        spinner: "crescent"
-                      });
+          key: "navigateTo",
+          value: function navigateTo(url) {
+            var _this = this;
 
-                    case 9:
-                      loading = _context.sent;
-                      _context.next = 12;
-                      return this.toastController.create({
-                        color: 'primary',
-                        message: 'Se registró el pedido! <br> En breve nos comunicaremos con usted.',
-                        duration: 2000
-                      });
-
-                    case 12:
-                      toast = _context.sent;
-                      _context.next = 15;
-                      return loading.present();
-
-                    case 15:
-                      _context.next = 17;
-                      return this.tService.saveTurno(turno).subscribe(function (data) {
-                        toast.present();
-                        loading.dismiss();
-                      }, function (error) {
-                        loading.dismiss();
-                      });
-
-                    case 17:
-                    case "end":
-                      return _context.stop();
-                  }
-                }
-              }, _callee, this);
-            }));
+            this.storage.set("tipo", url).then(function () {
+              return _this.navCtrl.navigateRoot("turno");
+            });
           }
         }]);
 
@@ -366,17 +250,9 @@
 
       Tab1Page.ctorParameters = function () {
         return [{
-          type: _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"]
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavController"]
         }, {
-          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["NavController"]
-        }, {
-          type: _services_turnos_service__WEBPACK_IMPORTED_MODULE_6__["TurnosService"]
-        }, {
-          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["LoadingController"]
-        }, {
-          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ToastController"]
-        }, {
-          type: _ionic_storage__WEBPACK_IMPORTED_MODULE_4__["Storage"]
+          type: _ionic_storage__WEBPACK_IMPORTED_MODULE_3__["Storage"]
         }];
       };
 

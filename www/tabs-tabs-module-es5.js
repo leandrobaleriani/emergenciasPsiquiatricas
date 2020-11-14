@@ -18,7 +18,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-tabs>\n\n  <ion-tab-bar slot=\"bottom\">\n    <ion-tab-button tab=\"tab1\">\n      <ion-icon name=\"time\"></ion-icon>\n      <ion-label>Turno</ion-label>\n    </ion-tab-button>\n\n    <ion-tab-button tab=\"tab2\">\n      <ion-icon name=\"reader\"></ion-icon>\n      <ion-label>Historial</ion-label>\n    </ion-tab-button>\n\n    <ion-tab-button tab=\"tab3\">\n      <ion-icon name=\"person-circle\"></ion-icon>\n      <ion-label>Perfil</ion-label>\n    </ion-tab-button>\n  </ion-tab-bar>\n\n</ion-tabs>\n";
+      __webpack_exports__["default"] = "<ion-tabs>\n\n  <ion-tab-bar slot=\"bottom\">\n    <ion-tab-button tab=\"tab1\">\n      <ion-icon name=\"time\"></ion-icon>\n      <ion-label>Turno</ion-label>\n    </ion-tab-button>\n\n    <ion-tab-button tab=\"tab2\">\n      <ion-icon name=\"reader\"></ion-icon>\n      <ion-label>Historial</ion-label>\n    </ion-tab-button>\n  </ion-tab-bar>\n\n</ion-tabs>\n";
       /***/
     },
 
@@ -72,9 +72,9 @@
         children: [{
           path: 'tab1',
           loadChildren: function loadChildren() {
-            return Promise.all(
+            return __webpack_require__.e(
             /*! import() | tab1-tab1-module */
-            [__webpack_require__.e("common"), __webpack_require__.e("tab1-tab1-module")]).then(__webpack_require__.bind(null,
+            "tab1-tab1-module").then(__webpack_require__.bind(null,
             /*! ../tab1/tab1.module */
             "./src/app/tab1/tab1.module.ts")).then(function (m) {
               return m.Tab1PageModule;
@@ -89,17 +89,6 @@
             /*! ../tab2/tab2.module */
             "./src/app/tab2/tab2.module.ts")).then(function (m) {
               return m.Tab2PageModule;
-            });
-          }
-        }, {
-          path: 'tab3',
-          loadChildren: function loadChildren() {
-            return __webpack_require__.e(
-            /*! import() | tab3-tab3-module */
-            "tab3-tab3-module").then(__webpack_require__.bind(null,
-            /*! ../tab3/tab3.module */
-            "./src/app/tab3/tab3.module.ts")).then(function (m) {
-              return m.Tab3PageModule;
             });
           }
         }, {

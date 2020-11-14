@@ -189,12 +189,23 @@
       }, {
         path: '',
         loadChildren: function loadChildren() {
-          return __webpack_require__.e(
+          return Promise.all(
           /*! import() | home-home-module */
-          "home-home-module").then(__webpack_require__.bind(null,
+          [__webpack_require__.e("common"), __webpack_require__.e("home-home-module")]).then(__webpack_require__.bind(null,
           /*! ./home/home.module */
           "./src/app/home/home.module.ts")).then(function (m) {
             return m.HomePageModule;
+          });
+        }
+      }, {
+        path: 'turno',
+        loadChildren: function loadChildren() {
+          return Promise.all(
+          /*! import() | turno-turno-module */
+          [__webpack_require__.e("common"), __webpack_require__.e("turno-turno-module")]).then(__webpack_require__.bind(null,
+          /*! ./turno/turno.module */
+          "./src/app/turno/turno.module.ts")).then(function (m) {
+            return m.TurnoPageModule;
           });
         }
       }];
@@ -281,14 +292,22 @@
       var _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
       /*! @ionic-native/status-bar/ngx */
       "./node_modules/@ionic-native/status-bar/__ivy_ngcc__/ngx/index.js");
+      /* harmony import */
+
+
+      var _ionic_native_firebase_x_ngx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      /*! @ionic-native/firebase-x/ngx */
+      "./node_modules/@ionic-native/firebase-x/__ivy_ngcc__/ngx/index.js");
 
       var AppComponent = /*#__PURE__*/function () {
-        function AppComponent(platform, splashScreen, statusBar) {
+        function AppComponent(platform, splashScreen, statusBar, firebase, alertController) {
           _classCallCheck(this, AppComponent);
 
           this.platform = platform;
           this.splashScreen = splashScreen;
           this.statusBar = statusBar;
+          this.firebase = firebase;
+          this.alertController = alertController;
           this.initializeApp();
         }
 
@@ -301,7 +320,46 @@
               _this.statusBar.styleDefault();
 
               _this.splashScreen.hide();
+
+              _this.firebase.getToken().then(function (token) {
+                return console.log("The token is ".concat(token));
+              });
+
+              _this.firebase.onMessageReceived().subscribe(function (data) {
+                _this.showNotificacion(data);
+              });
             });
+          }
+        }, {
+          key: "showNotificacion",
+          value: function showNotificacion(data) {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+              var alert;
+              return regeneratorRuntime.wrap(function _callee$(_context) {
+                while (1) {
+                  switch (_context.prev = _context.next) {
+                    case 0:
+                      _context.next = 2;
+                      return this.alertController.create({
+                        cssClass: 'my-custom-class',
+                        header: 'Solicitud de Turno!',
+                        subHeader: 'Su turno se encuentra aceptado',
+                        message: 'This is an alert message.',
+                        buttons: ['OK']
+                      });
+
+                    case 2:
+                      alert = _context.sent;
+                      _context.next = 5;
+                      return alert.present();
+
+                    case 5:
+                    case "end":
+                      return _context.stop();
+                  }
+                }
+              }, _callee, this);
+            }));
           }
         }]);
 
@@ -315,6 +373,10 @@
           type: _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_3__["SplashScreen"]
         }, {
           type: _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_4__["StatusBar"]
+        }, {
+          type: _ionic_native_firebase_x_ngx__WEBPACK_IMPORTED_MODULE_5__["FirebaseX"]
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"]
         }];
       };
 
@@ -415,6 +477,12 @@
       var _angular_common_http__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
       /*! @angular/common/http */
       "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+      /* harmony import */
+
+
+      var _ionic_native_firebase_x_ngx__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+      /*! @ionic-native/firebase-x/ngx */
+      "./node_modules/@ionic-native/firebase-x/__ivy_ngcc__/ngx/index.js");
 
       var AppModule = function AppModule() {
         _classCallCheck(this, AppModule);
@@ -427,7 +495,7 @@
         providers: [_ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__["StatusBar"], _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"], {
           provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"],
           useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicRouteStrategy"]
-        }],
+        }, _ionic_native_firebase_x_ngx__WEBPACK_IMPORTED_MODULE_11__["FirebaseX"]],
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_9__["AppComponent"]]
       })], AppModule);
       /***/

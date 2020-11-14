@@ -51,7 +51,7 @@ var ɵUniqueDeviceID_BaseFactory = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n\t<ion-toolbar color=\"primary\">\n\t\t<ion-title>Inicio</ion-title>\n\t</ion-toolbar>\n</ion-header>\n\n<ion-content padding>\n  <ion-grid style=\"height: 50%\">\n\t\t<ion-row style=\"height: 100%; flex-direction: column\">\n\t\t\t<img src=\"assets/img/logo.png\" />\n\t\t</ion-row>\n\t\t<form [formGroup]=\"login\" (ngSubmit)=\"validateLogin()\">\n\t\t\t<ion-item>\n\t\t\t\t<ion-label>Usuario</ion-label>\n\t\t\t\t<ion-input type=\"text\" formControlName=\"usuario\" required></ion-input>\n\t\t\t</ion-item>\n\t\t\t<ion-item>\n\t\t\t\t<ion-label>Contraseña</ion-label>\n\t\t\t\t<ion-input type=\"text\" formControlName=\"pass\" required></ion-input>\n\t\t\t</ion-item>\n\t\t\t<ion-button expand=\"full\" color=\"primary\" type=\"submit\" [disabled]=\"!login.valid\">Iniciar Sesi&oacute;n\n\t\t\t</ion-button>\n\t\t</form>\n\t</ion-grid>\n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n\t<ion-toolbar color=\"primary\">\n\t\t<ion-title>Inicio</ion-title>\n\t</ion-toolbar>\n</ion-header>\n\n<ion-content padding>\n  <ion-grid style=\"height: 50%\">\n\t\t<ion-row>\n\t\t\t<img src=\"assets/img/logo.png\" />\n\t\t</ion-row>\n\t\t<form [formGroup]=\"login\" (ngSubmit)=\"validateLogin()\">\n\t\t\t<ion-item>\n\t\t\t\t<ion-label>Usuario</ion-label>\n\t\t\t\t<ion-input type=\"text\" formControlName=\"usuario\" required></ion-input>\n\t\t\t</ion-item>\n\t\t\t<ion-item>\n\t\t\t\t<ion-label>Contraseña</ion-label>\n\t\t\t\t<ion-input type=\"text\" formControlName=\"pass\" required></ion-input>\n\t\t\t</ion-item>\n\t\t\t<ion-button expand=\"full\" color=\"primary\" type=\"submit\" [disabled]=\"!login.valid\">Iniciar Sesi&oacute;n\n\t\t\t</ion-button>\n\t\t</form>\n\t</ion-grid>\n</ion-content>");
 
 /***/ }),
 
@@ -167,6 +167,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/__ivy_ngcc__/fesm2015/ionic-angular.js");
 /* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/__ivy_ngcc__/fesm2015/ionic-storage.js");
 /* harmony import */ var _ionic_native_unique_device_id_ngx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic-native/unique-device-id/ngx */ "./node_modules/@ionic-native/unique-device-id/__ivy_ngcc__/ngx/index.js");
+/* harmony import */ var _services_turnos_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../services/turnos.service */ "./src/app/services/turnos.service.ts");
+/* harmony import */ var _model_Usuario__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../model/Usuario */ "./src/app/model/Usuario.ts");
+
+
 
 
 
@@ -174,7 +178,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let HomePage = class HomePage {
-    constructor(formBuilder, navCtrl, storage, loadingController, toastController, platform, alertController, uniqueDeviceID) {
+    constructor(formBuilder, navCtrl, storage, loadingController, toastController, platform, alertController, uniqueDeviceID, tService) {
         this.formBuilder = formBuilder;
         this.navCtrl = navCtrl;
         this.storage = storage;
@@ -183,6 +187,7 @@ let HomePage = class HomePage {
         this.platform = platform;
         this.alertController = alertController;
         this.uniqueDeviceID = uniqueDeviceID;
+        this.tService = tService;
         this.user = {};
         this.showUser = false;
         this.login = this.formBuilder.group({
@@ -211,18 +216,36 @@ let HomePage = class HomePage {
                 message: 'Se inicio sesión correctamente!',
                 duration: 2000
             });
+            const toastError = yield this.toastController.create({
+                color: 'danger',
+                message: 'Usuario y/o Contraseña invalido!',
+                duration: 2000
+            });
             yield loading.present();
             this.uniqueDeviceID.get()
                 .then((uuid) => {
-                let user = { usuario: '', pass: '', id: '', nombre: '' };
-                user.usuario = this.login.controls.usuario.value;
-                user.pass = this.login.controls.pass.value;
-                user.nombre = '';
-                user.id = uuid;
-                this.storage.set("user", user);
-                toast.present();
-                loading.dismiss();
-                this.navCtrl.navigateRoot('/tabs/tabs');
+                let usuario = new _model_Usuario__WEBPACK_IMPORTED_MODULE_7__["Usuario"]();
+                usuario.usu_nombre = this.login.controls.usuario.value;
+                usuario.usu_pass = this.login.controls.pass.value;
+                this.tService.acceso(usuario).subscribe(data => {
+                    if (data == "1") {
+                        let user = { usuario: '', pass: '', id: '', nombre: '' };
+                        user.usuario = this.login.controls.usuario.value;
+                        user.pass = this.login.controls.pass.value;
+                        user.nombre = '';
+                        user.id = uuid;
+                        this.storage.set("user", user);
+                        toast.present();
+                        loading.dismiss();
+                        this.navCtrl.navigateRoot('/tabs/tabs');
+                    }
+                    else {
+                        toastError.present();
+                        loading.dismiss();
+                    }
+                }, error => {
+                    loading.dismiss();
+                });
             })
                 .catch((error) => console.log(error));
         });
@@ -236,7 +259,8 @@ HomePage.ctorParameters = () => [
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ToastController"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["Platform"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["AlertController"] },
-    { type: _ionic_native_unique_device_id_ngx__WEBPACK_IMPORTED_MODULE_5__["UniqueDeviceID"] }
+    { type: _ionic_native_unique_device_id_ngx__WEBPACK_IMPORTED_MODULE_5__["UniqueDeviceID"] },
+    { type: _services_turnos_service__WEBPACK_IMPORTED_MODULE_6__["TurnosService"] }
 ];
 HomePage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -246,6 +270,22 @@ HomePage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     })
 ], HomePage);
 
+
+
+/***/ }),
+
+/***/ "./src/app/model/Usuario.ts":
+/*!**********************************!*\
+  !*** ./src/app/model/Usuario.ts ***!
+  \**********************************/
+/*! exports provided: Usuario */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Usuario", function() { return Usuario; });
+class Usuario {
+}
 
 
 /***/ })

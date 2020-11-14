@@ -1,30 +1,22 @@
 <ion-header>
 	<ion-toolbar color="primary">
-		<ion-title>Solicitar Turno</ion-title>
+		<ion-title>Opciones</ion-title>
 	</ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-	<form [formGroup]="turno" (ngSubmit)="saveTurno()">
-    <ion-item>
-			<ion-label position="stacked">Fecha:</ion-label>
-			<ion-datetime cancelText="Cancelar" doneText="Listo" value="{{ turno.fecha | date:'dd-MM-yyyy' }}" display-format="DD/MM/YYYY" picker-format="DD/MM/YYYY" formControlName="fecha" required></ion-datetime>
-		</ion-item>
-    <ion-item>
-			<ion-label position="stacked">Tipo de Turno:</ion-label>
-			<ion-select value="URGENCIA" okText="Listo" cancelText="Cancelar">
-        <ion-select-option value="URGENCIA">URGENCIA</ion-select-option>
-        <ion-select-option value="NORMAL">NORMAL</ion-select-option>
-      </ion-select>
-    </ion-item>
-		<ion-item>
-			<ion-label position="stacked">Nombre:</ion-label>
-			<ion-input type="text" formControlName="nombre" required></ion-input>
-		</ion-item>
-		<ion-item>
-			<ion-label position="stacked">Descripci&oacute;n:</ion-label>
-			<ion-textarea formControlName="detalle" required></ion-textarea>
-    </ion-item>
-    <ion-button type="submit" expand="full" [disabled]="!turno.valid">Solicitar</ion-button>
-	</form>
+<ion-content [fullscreen]="true" class="background">
+	  <div class="fullheight xc">
+		<ion-grid>
+			<ion-row class="ion-align-items-center">
+			  <ion-col size="12" class="ion-text-center">
+				<ion-button expand="full" color="success" type="button" (click)="navigateTo('PROGRAMADA')">PROGRAMAR TURNO
+				</ion-button>
+			  </ion-col>
+			  <ion-col size="12" class="ion-text-center">
+				<ion-button expand="full" color="success" type="button" (click)="navigateTo('URGENCIA')">SOLICITAR ATENCION INMEDIATA
+				</ion-button>
+			  </ion-col>
+			</ion-row>
+		  </ion-grid>
+	  </div>
 </ion-content>

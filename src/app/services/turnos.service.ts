@@ -2,26 +2,27 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Turno } from '../model/Turno';
+import { Usuario } from '../model/Usuario';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TurnosService {
 
-  baseUrl = "https://bibal.com.ar/servicios/ferzam";
+  baseUrl = "http://medil.com.ar/serviciosSaludLaboral";
 
 	constructor(private http: HttpClient) { }
 
 	getTurnos(): Observable<Turno[]> {
-		return this.http.get<Turno[]>(this.baseUrl + "/obtenerReservas.php");
+		return this.http.get<Turno[]>(this.baseUrl + "/obtenerTurnos.php");
 	}
 
-	getTurnosByUserId(id: string): Observable<Turno[]> {
-		return this.http.get<Turno[]>(this.baseUrl + "/obtenerReservaByUserId.php?userId=" + id);
+	getTurnosByDeviceId(id: string): Observable<Turno[]> {
+		return this.http.get<Turno[]>(this.baseUrl + "/obtenerTurnosByDeviceId.php?deviceId=" + id);
 	}
 
-	saveTurno(reserva: Turno): Observable<Turno> {
-		return this.http.post<Turno>(this.baseUrl + "/altaReserva.php", reserva);
+	saveTurno(turno: Turno): Observable<Turno> {
+		return this.http.post<Turno>(this.baseUrl + "/altaTurno.php", turno);
 	}
 
 	eliminarTurno(id: number) {
@@ -29,10 +30,10 @@ export class TurnosService {
 	}
 
 	cancelarTurno(id: number, estado: string): Observable<Number> {
-		return this.http.get<Number>(this.baseUrl + "/cambiarEstadoReserva.php?id=" + id + "&estado=" + estado);
+		return this.http.get<Number>(this.baseUrl + "/cambiarEstadoTurno.php?id=" + id + "&estado=" + estado);
 	}
 
-	getTurnosByFecha(fecha): Observable<Turno[]> {
-		return this.http.get<Turno[]>(this.baseUrl + "/obtenerReservasByFecha.php?fecha="+fecha);
+	acceso(usuario: Usuario): Observable<String> {
+		return this.http.post<String>(this.baseUrl + "/acceso.php", usuario);
 	}
 }

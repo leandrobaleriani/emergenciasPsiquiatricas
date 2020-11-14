@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { AlertController, LoadingController, NavController, Platform, ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
+import { TurnosService } from '../services/turnos.service';
+import { Usuario } from '../model/Usuario';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +21,8 @@ export class HomePage implements OnInit {
 		public toastController: ToastController,
 		private platform: Platform,
 		public alertController: AlertController,
-		private uniqueDeviceID: UniqueDeviceID
+		private uniqueDeviceID: UniqueDeviceID,
+		private tService: TurnosService
 	) {
 
 		this.login = this.formBuilder.group({
@@ -57,20 +60,38 @@ export class HomePage implements OnInit {
 			duration: 2000
 		});
 
+		const toastError = await this.toastController.create({
+			color: 'danger',
+			message: 'Usuario y/o Contraseña invalido!',
+			duration: 2000
+		});
+
 		await loading.present();
 
 		this.uniqueDeviceID.get()
   			.then((uuid: any) => {
-				let user = { usuario: '', pass: '', id: '', nombre: '' };
-				user.usuario = this.login.controls.usuario.value;
-				user.pass = this.login.controls.pass.value;
-				user.nombre = '';
-				user.id = uuid;
-				this.storage.set("user", user);
-		
-				toast.present();
-				loading.dismiss();
-				this.navCtrl.navigateRoot('/tabs/tabs');
+				let usuario = new Usuario();
+				usuario.usu_nombre = this.login.controls.usuario.value;
+				usuario.usu_pass = this.login.controls.pass.value;
+
+				this.tService.acceso(usuario).subscribe(data => {
+					if(data == "1") {
+						let user = { usuario: '', pass: '', id: '', nombre: '' };
+						user.usuario = this.login.controls.usuario.value;
+						user.pass = this.login.controls.pass.value;
+						user.nombre = '';
+						user.id = uuid;
+						this.storage.set("user", user);
+						toast.present();
+						loading.dismiss();
+						this.navCtrl.navigateRoot('/tabs/tabs');	
+					}else {
+						toastError.present();
+						loading.dismiss();
+					}
+				}, error => {
+					loading.dismiss();
+				})
 			  })
   			.catch((error: any) => console.log(error));
 	}

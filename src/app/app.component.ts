@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { AlertController, Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { Firebase } from '@ionic-native/firebase/ngx';
+import { FirebaseX } from '@ionic-native/firebase-x/ngx';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +15,8 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private firebase: Firebase
+    private firebase: FirebaseX,
+    public alertController: AlertController
   ) {
     this.initializeApp();
   }
@@ -25,15 +26,25 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
-      this.firebase.getToken()
-        .then(token => console.log(`The token is ${token}`)) // save the token server-side and use it to push notifications to this device
-        .catch(error => console.error('Error getting token', error));
+      this.firebase.getToken().then(token => console.log(`The token is ${token}`));
+      
+      this.firebase.onMessageReceived().subscribe(data => 
+        {
+          this.showNotificacion(data);
+      });
 
-      this.firebase.onNotificationOpen()
-        .subscribe(data => console.log(`User opened a notification ${data}`));
-
-      this.firebase.onTokenRefresh()
-        .subscribe((token: string) => console.log(`Got a new token ${token}`));
     });
+  }
+
+  async showNotificacion(data) {
+    const alert = await this.alertController.create({
+    cssClass: 'my-custom-class',
+    header: 'Solicitud de Turno!',
+    subHeader: 'Su turno se encuentra aceptado',
+    message: 'This is an alert message.',
+    buttons: ['OK']
+  });
+
+    await alert.present();
   }
 }
