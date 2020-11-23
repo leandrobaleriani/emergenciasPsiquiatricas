@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Sim } from '@ionic-native/sim/ngx';
 import { AlertController, LoadingController, NavController, ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { Turno } from '../model/Turno';
@@ -16,7 +17,7 @@ export class TurnoPage implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private navCtrl: NavController,
     private tService: TurnosService, public loadingController: LoadingController, 
-    public toastController: ToastController, public storage: Storage) {
+	public toastController: ToastController, public storage: Storage) {
 		this.turno = this.formBuilder.group({
 			fecha: '',
 			nombre: '',

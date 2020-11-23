@@ -52,6 +52,9 @@
     },
     "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "com.bibal.saludlaboral"
+    },
+    "cordova-plugin-sim": {
+      "PACKAGE_NAME": "com.bibal.saludlaboral"
     }
   },
   "dependent_plugins": {}
