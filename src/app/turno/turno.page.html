@@ -13,7 +13,7 @@
 	<form [formGroup]="turno" (ngSubmit)="saveTurno()">
     <ion-item>
 			<ion-label position="stacked">Fecha:</ion-label>
-			<ion-datetime cancelText="Cancelar" doneText="Listo" value="{{ turno.fecha | date:'dd-MM-yyyy' }}" display-format="DD/MM/YYYY" picker-format="DD/MM/YYYY" formControlName="fecha" required></ion-datetime>
+			<ion-datetime cancelText="Cancelar" doneText="Listo" display-format="DD/MM/YYYY" picker-format="DD/MM/YYYY" formControlName="fecha" required></ion-datetime>
 		</ion-item>
     <ion-item>
 			<ion-label position="stacked">Tipo de Turno:</ion-label>

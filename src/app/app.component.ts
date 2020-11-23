@@ -4,6 +4,9 @@ import { AlertController, Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { FirebaseX } from '@ionic-native/firebase-x/ngx';
+import { DispositivoService } from './services/dispositivo.service';
+import { Dispositivo } from './model/Dispositivo';
+import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +19,9 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private firebase: FirebaseX,
-    public alertController: AlertController
+    public alertController: AlertController,
+    public dService: DispositivoService,
+    private uniqueDeviceID: UniqueDeviceID
   ) {
     this.initializeApp();
   }
@@ -26,7 +31,18 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
-      this.firebase.getToken().then(token => console.log(`The token is ${token}`));
+      this.firebase.getToken().then(token => {
+        console.log(`The token is ${token}`);
+        this.uniqueDeviceID.get()
+  			.then((uuid: any) => {
+          console.log(uuid);
+          let dispositivo = new Dispositivo();
+          dispositivo.dis_device_id = uuid;
+          dispositivo.dis_firebase_token = token;
+
+          this.dService.saveDispositivo(dispositivo).subscribe(data => console.log(data));
+        });
+      });
       
       this.firebase.onMessageReceived().subscribe(data => 
         {

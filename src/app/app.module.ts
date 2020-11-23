@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FirebaseX } from '@ionic-native/firebase-x/ngx';
+import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,7 +25,8 @@ import { FirebaseX } from '@ionic-native/firebase-x/ngx';
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    FirebaseX
+    FirebaseX,
+    UniqueDeviceID
   ],
   bootstrap: [AppComponent]
 })

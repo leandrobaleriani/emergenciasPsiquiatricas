@@ -348,6 +348,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic-native/splash-screen/ngx */ "./node_modules/@ionic-native/splash-screen/__ivy_ngcc__/ngx/index.js");
 /* harmony import */ var _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic-native/status-bar/ngx */ "./node_modules/@ionic-native/status-bar/__ivy_ngcc__/ngx/index.js");
 /* harmony import */ var _ionic_native_firebase_x_ngx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic-native/firebase-x/ngx */ "./node_modules/@ionic-native/firebase-x/__ivy_ngcc__/ngx/index.js");
+/* harmony import */ var _services_dispositivo_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./services/dispositivo.service */ "./src/app/services/dispositivo.service.ts");
+/* harmony import */ var _model_Dispositivo__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./model/Dispositivo */ "./src/app/model/Dispositivo.ts");
+/* harmony import */ var _ionic_native_unique_device_id_ngx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic-native/unique-device-id/ngx */ "./node_modules/@ionic-native/unique-device-id/__ivy_ngcc__/ngx/index.js");
+
+
+
 
 
 
@@ -355,19 +361,31 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let AppComponent = class AppComponent {
-    constructor(platform, splashScreen, statusBar, firebase, alertController) {
+    constructor(platform, splashScreen, statusBar, firebase, alertController, dService, uniqueDeviceID) {
         this.platform = platform;
         this.splashScreen = splashScreen;
         this.statusBar = statusBar;
         this.firebase = firebase;
         this.alertController = alertController;
+        this.dService = dService;
+        this.uniqueDeviceID = uniqueDeviceID;
         this.initializeApp();
     }
     initializeApp() {
         this.platform.ready().then(() => {
             this.statusBar.styleDefault();
             this.splashScreen.hide();
-            this.firebase.getToken().then(token => console.log(`The token is ${token}`));
+            this.firebase.getToken().then(token => {
+                console.log(`The token is ${token}`);
+                this.uniqueDeviceID.get()
+                    .then((uuid) => {
+                    console.log(uuid);
+                    let dispositivo = new _model_Dispositivo__WEBPACK_IMPORTED_MODULE_7__["Dispositivo"]();
+                    dispositivo.dis_device_id = uuid;
+                    dispositivo.dis_firebase_token = token;
+                    this.dService.saveDispositivo(dispositivo).subscribe(data => console.log(data));
+                });
+            });
             this.firebase.onMessageReceived().subscribe(data => {
                 this.showNotificacion(data);
             });
@@ -391,7 +409,9 @@ AppComponent.ctorParameters = () => [
     { type: _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_3__["SplashScreen"] },
     { type: _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_4__["StatusBar"] },
     { type: _ionic_native_firebase_x_ngx__WEBPACK_IMPORTED_MODULE_5__["FirebaseX"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"] }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"] },
+    { type: _services_dispositivo_service__WEBPACK_IMPORTED_MODULE_6__["DispositivoService"] },
+    { type: _ionic_native_unique_device_id_ngx__WEBPACK_IMPORTED_MODULE_8__["UniqueDeviceID"] }
 ];
 AppComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -427,6 +447,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
 /* harmony import */ var _ionic_native_firebase_x_ngx__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ionic-native/firebase-x/ngx */ "./node_modules/@ionic-native/firebase-x/__ivy_ngcc__/ngx/index.js");
+/* harmony import */ var _ionic_native_unique_device_id_ngx__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ionic-native/unique-device-id/ngx */ "./node_modules/@ionic-native/unique-device-id/__ivy_ngcc__/ngx/index.js");
+
 
 
 
@@ -454,11 +476,66 @@ AppModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
             _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__["StatusBar"],
             _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"],
             { provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicRouteStrategy"] },
-            _ionic_native_firebase_x_ngx__WEBPACK_IMPORTED_MODULE_11__["FirebaseX"]
+            _ionic_native_firebase_x_ngx__WEBPACK_IMPORTED_MODULE_11__["FirebaseX"],
+            _ionic_native_unique_device_id_ngx__WEBPACK_IMPORTED_MODULE_12__["UniqueDeviceID"]
         ],
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_9__["AppComponent"]]
     })
 ], AppModule);
+
+
+
+/***/ }),
+
+/***/ "./src/app/model/Dispositivo.ts":
+/*!**************************************!*\
+  !*** ./src/app/model/Dispositivo.ts ***!
+  \**************************************/
+/*! exports provided: Dispositivo */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Dispositivo", function() { return Dispositivo; });
+class Dispositivo {
+}
+
+
+/***/ }),
+
+/***/ "./src/app/services/dispositivo.service.ts":
+/*!*************************************************!*\
+  !*** ./src/app/services/dispositivo.service.ts ***!
+  \*************************************************/
+/*! exports provided: DispositivoService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DispositivoService", function() { return DispositivoService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+
+
+
+let DispositivoService = class DispositivoService {
+    constructor(http) {
+        this.http = http;
+        this.baseUrl = "http://medil.com.ar/serviciosSaludLaboral";
+    }
+    saveDispositivo(dispositivo) {
+        return this.http.post(this.baseUrl + "/altaDispositivo.php", dispositivo);
+    }
+};
+DispositivoService.ctorParameters = () => [
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"] }
+];
+DispositivoService = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Injectable"])({
+        providedIn: 'root'
+    })
+], DispositivoService);
 
 
 
