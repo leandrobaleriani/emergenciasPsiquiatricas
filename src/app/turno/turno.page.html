@@ -29,7 +29,11 @@
 		<ion-item>
 			<ion-label position="stacked">Descripci&oacute;n:</ion-label>
 			<ion-textarea formControlName="detalle" required></ion-textarea>
-    </ion-item>
+	</ion-item>
+	<ion-item>
+			<ion-label position="stacked">Telefono:</ion-label>
+			<ion-input type="text" formControlName="telefono" required></ion-input>
+		</ion-item>
     <ion-button type="submit" expand="full" [disabled]="!turno.valid">Solicitar</ion-button>
 	</form>
 </ion-content>

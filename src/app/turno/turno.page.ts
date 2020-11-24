@@ -23,7 +23,8 @@ export class TurnoPage implements OnInit {
 			nombre: '',
 			detalle: '',
 			tipo: '',
-			deviceId: ''
+			deviceId: '',
+			telefono: ''
 		});
 
 		this.storage.get('user').then((val) => {
@@ -52,7 +53,8 @@ export class TurnoPage implements OnInit {
     	turno.tur_tipo = this.turno.controls.tipo.value;
 		turno.tur_estado = "PENDIENTE";
 		turno.device_id = this.turno.controls.deviceId.value;
-		
+		turno.tur_telefono = this.turno.controls.telefono.value;
+
 		let loading = await this.loadingController.create({
 			message: "Espere...",
 			spinner: "crescent"
