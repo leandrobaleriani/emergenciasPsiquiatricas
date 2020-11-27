@@ -8,7 +8,7 @@ import { HomePageRoutingModule } from './home-routing.module';
 
 import { HomePage } from './home.page';
 
-import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
+import { Device } from '@ionic-native/device/ngx';
 
 @NgModule({
   imports: [
@@ -19,6 +19,6 @@ import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
     ReactiveFormsModule
   ],
   declarations: [HomePage],
-  providers: [UniqueDeviceID]
+  providers: [Device]
 })
 export class HomePageModule {}

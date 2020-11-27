@@ -41,6 +41,9 @@ MIT
 @ionic-native/core
 MIT
 
+@ionic-native/device
+MIT
+
 @ionic-native/firebase-x
 MIT
 
@@ -48,9 +51,6 @@ MIT
 MIT
 
 @ionic-native/status-bar
-MIT
-
-@ionic-native/unique-device-id
 MIT
 
 @ionic/angular

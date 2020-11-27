@@ -8,7 +8,7 @@ import { Dispositivo } from '../model/Dispositivo';
 })
 export class DispositivoService {
 
-  baseUrl = "http://medil.com.ar/serviciosSaludLaboral";
+  baseUrl = "https://medil.com.ar/serviciosSaludLaboral";
 
 	constructor(private http: HttpClient) { }
 

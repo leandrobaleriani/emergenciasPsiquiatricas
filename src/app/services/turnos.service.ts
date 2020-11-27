@@ -9,7 +9,7 @@ import { Usuario } from '../model/Usuario';
 })
 export class TurnosService {
 
-  baseUrl = "http://medil.com.ar/serviciosSaludLaboral";
+  baseUrl = "https://medil.com.ar/serviciosSaludLaboral";
 
 	constructor(private http: HttpClient) { }
 

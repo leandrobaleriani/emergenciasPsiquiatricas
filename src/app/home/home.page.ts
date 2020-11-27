@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AlertController, LoadingController, NavController, Platform, ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
-import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
 import { TurnosService } from '../services/turnos.service';
 import { Usuario } from '../model/Usuario';
+import { Device } from '@ionic-native/device/ngx';
 
 @Component({
   selector: 'app-home',
@@ -21,7 +21,7 @@ export class HomePage implements OnInit {
 		public toastController: ToastController,
 		private platform: Platform,
 		public alertController: AlertController,
-		private uniqueDeviceID: UniqueDeviceID,
+		private device: Device,
 		private tService: TurnosService
 	) {
 
@@ -68,9 +68,7 @@ export class HomePage implements OnInit {
 
 		await loading.present();
 
-		this.uniqueDeviceID.get()
-  			.then((uuid: any) => {
-				let usuario = new Usuario();
+		let usuario = new Usuario();
 				usuario.usu_nombre = this.login.controls.usuario.value;
 				usuario.usu_pass = this.login.controls.pass.value;
 
@@ -80,7 +78,7 @@ export class HomePage implements OnInit {
 						user.usuario = this.login.controls.usuario.value;
 						user.pass = this.login.controls.pass.value;
 						user.nombre = '';
-						user.id = uuid;
+						user.id = this.device.uuid;
 						this.storage.set("user", user);
 						toast.present();
 						loading.dismiss();
@@ -90,10 +88,22 @@ export class HomePage implements OnInit {
 						loading.dismiss();
 					}
 				}, error => {
+					this.showNotificacion(JSON.stringify(error));
+					this.showNotificacion(error.message);
 					loading.dismiss();
-				})
-			  })
-  			.catch((error: any) => console.log(error));
+				});
 	}
+
+	async showNotificacion(data) {
+		const alert = await this.alertController.create({
+		cssClass: 'my-custom-class',
+		header: "",
+		subHeader: '',
+		message: data,
+		buttons: ['OK']
+	  });
+	
+		await alert.present();
+	  }
 
 }

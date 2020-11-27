@@ -11,7 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FirebaseX } from '@ionic-native/firebase-x/ngx';
-import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
+import { Device } from '@ionic-native/device/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,7 +26,7 @@ import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     FirebaseX,
-    UniqueDeviceID
+    Device
   ],
   bootstrap: [AppComponent]
 })

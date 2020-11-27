@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Sim } from '@ionic-native/sim/ngx';
 import { AlertController, LoadingController, NavController, ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { Turno } from '../model/Turno';
