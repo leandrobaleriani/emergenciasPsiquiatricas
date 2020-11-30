@@ -7,6 +7,7 @@ import { FirebaseX } from '@ionic-native/firebase-x/ngx';
 import { DispositivoService } from './services/dispositivo.service';
 import { Dispositivo } from './model/Dispositivo';
 import { Device } from '@ionic-native/device/ngx';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +22,8 @@ export class AppComponent {
     private firebase: FirebaseX,
     public alertController: AlertController,
     public dService: DispositivoService,
-    private device: Device
+    private device: Device,
+    private storage: Storage
   ) {
     this.initializeApp();
   }
@@ -32,11 +34,16 @@ export class AppComponent {
       this.splashScreen.hide();
 
       this.firebase.getToken().then(token => {
-        let dispositivo = new Dispositivo();
-          dispositivo.dis_device_id = this.device.uuid;
-          dispositivo.dis_firebase_token = token;
 
-          this.dService.saveDispositivo(dispositivo).subscribe(data => {});
+        this.storage.get('user').then((val) => {
+          if (val) {
+            let dispositivo = new Dispositivo();
+            dispositivo.dis_device_id = val.id;
+            dispositivo.dis_firebase_token = token;
+  
+            this.dService.saveDispositivo(dispositivo).subscribe(data => {}); 
+          }
+        });
       });
       
       this.firebase.onMessageReceived().subscribe(data => 
